@@ -1,16 +1,29 @@
 import Seo from "../components/Seo";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Home({ results }) {
+  const router = useRouter();
+  const navigate = (id) => {
+    router.push(`/movies/${id}`);
+  };
+
   return (
     <div className="container">
       <Seo title="Home" />
       {results?.map((movie) => (
-        <div className="movie" key={movie.id}>
+        // <Link href={`/movies/${movie.id}`} key={movie.id}>
+        <div
+          onClick={() => navigate(movie.id)}
+          className="movie"
+          key={movie.id}
+        >
           <img
             src={`https://www.themoviedb.org/t/p/w440_and_h660_face${movie.poster_path}`}
           />
           <h4>{movie.original_title}</h4>
         </div>
+        // </Link>
       ))}
 
       <style jsx>{`
@@ -39,7 +52,9 @@ export default function Home({ results }) {
 }
 
 export async function getServerSideProps() {
-  const { results } = await (await fetch("http://localhost:3000/api/movies")).json();
+  const { results } = await (
+    await fetch("http://localhost:3000/api/movies")
+  ).json();
   return {
     props: {
       results,
