@@ -4,8 +4,13 @@ import { useRouter } from "next/router";
 
 export default function Home({ results }) {
   const router = useRouter();
-  const navigate = (id) => {
-    router.push(`/movies/${id}`);
+  const navigate = (id, title) => {
+    router.push({
+      pathname: `/movies/${id}`,
+      query: {
+        title
+      },
+    }, `/movies/${id}`) // hide query from URL using as option
   };
 
   return (
@@ -14,7 +19,7 @@ export default function Home({ results }) {
       {results?.map((movie) => (
         // <Link href={`/movies/${movie.id}`} key={movie.id}>
         <div
-          onClick={() => navigate(movie.id)}
+          onClick={() => navigate(movie.id, movie.original_title)}
           className="movie"
           key={movie.id}
         >
