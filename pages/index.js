@@ -7,7 +7,7 @@ export default function Home({ results }) {
       {results?.map((movie) => (
         <div className="movie" key={movie.id}>
           <img
-            src={`https://www.themoviedb.org/t/p/w440_and_h660_face/${movie.poster_path}`}
+            src={`https://www.themoviedb.org/t/p/w440_and_h660_face${movie.poster_path}`}
           />
           <h4>{movie.original_title}</h4>
         </div>
